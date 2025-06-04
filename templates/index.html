@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <title>Book Recommender System</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class'
+    };
+
+    function toggleDarkMode() {
+      document.documentElement.classList.toggle('dark');
+    }
+  </script>
+</head>
+<body class="bg-white text-black dark:bg-black dark:text-white transition-colors duration-300 min-h-screen">
+
+  <!-- Navbar -->
+  <nav class="bg-red-600 dark:bg-red-700 px-6 py-4 flex justify-between items-center">
+    <div class="text-xl font-bold">Book Recommender System</div>
+    <ul class="flex space-x-6">
+      <li><a href="/" class="hover:underline">Home</a></li>
+      <li><a href="/recommend" class="hover:underline">Recommend</a></li>
+    </ul>
+    <button onclick="toggleDarkMode()" class="bg-white dark:bg-gray-800 text-black dark:text-white px-3 py-1 rounded hover:bg-gray-200 dark:hover:bg-gray-700 transition">
+      Toggle Mode
+    </button>
+  </nav>
+
+  <!-- Main Content -->
+  <div class="max-w-7xl mx-auto px-4 py-8">
+    <h1 class="text-4xl md:text-5xl font-bold mb-8">Top 50 Books</h1>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+      {% for i in range(book_name|length) %}
+        <div class="bg-gray-100 dark:bg-gray-800 rounded-lg overflow-hidden shadow hover:shadow-xl transition duration-300">
+          <img src="{{ image[i] }}" alt="Book Cover" class="w-full h-64 object-cover">
+          <div class="p-4">
+            <p class="text-lg font-semibold mb-1 dark:text-white">{{ book_name[i] }}</p>
+            <h4 class="text-gray-700 dark:text-gray-300">{{ author[i] }}</h4>
+            <h4 class="text-sm text-gray-600 dark:text-gray-400 mt-1">Votes: {{ votes[i] }}</h4>
+            <h4 class="text-sm text-gray-600 dark:text-gray-400">Rating: {{ rating[i] }}</h4>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+
+</body>
+</html>

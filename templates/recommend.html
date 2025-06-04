@@ -1,0 +1,56 @@
+<!-- recommend.html -->
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <title>Book Recommender - Recommend</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class'
+    };
+    function toggleMode() {
+      document.documentElement.classList.toggle('dark');
+    }
+  </script>
+</head>
+<body class="bg-white text-black dark:bg-black dark:text-white min-h-screen transition-colors duration-300">
+
+  <!-- Navbar -->
+  <nav class="bg-emerald-600 dark:bg-emerald-700 p-4 flex items-center justify-between">
+    <div class="text-xl font-bold">My Book Recommender</div>
+    <ul class="flex space-x-6">
+      <li><a href="/" class="hover:underline">Home</a></li>
+      <li><a href="/recommend" class="hover:underline">Recommend</a></li>
+      <li><a href="#" class="hover:underline">Contact</a></li>
+    </ul>
+    <button onclick="toggleMode()" class="bg-white dark:bg-gray-800 text-black dark:text-white px-3 py-1 rounded hover:bg-gray-100 dark:hover:bg-gray-700 transition">
+      Toggle Mode
+    </button>
+  </nav>
+
+  <!-- Content -->
+  <div class="max-w-4xl mx-auto p-8">
+    <h1 class="text-4xl font-bold mb-6">Recommend Books</h1>
+    <form action="/recommend_books" method="post" class="space-y-4">
+      <input name="user_input" type="text" class="w-full p-3 border rounded bg-gray-100 dark:bg-gray-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-emerald-500" placeholder="Enter a book or genre...">
+      <input type="submit" class="bg-yellow-400 hover:bg-yellow-500 text-black font-bold py-2 px-6 rounded cursor-pointer transition">
+    </form>
+  </div>
+
+  {% if data %}
+    <div class="max-w-7xl mx-auto px-4 py-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+      {% for i in data %}
+        <div class="bg-gray-200 dark:bg-gray-800 rounded-lg shadow hover:shadow-xl transition overflow-hidden">
+          <img src="{{ i[2] }}" alt="Book Cover" class="w-full h-64 object-cover">
+          <div class="p-4">
+            <p class="text-lg font-semibold mb-2 dark:text-white">{{ i[0] }}</p>
+            <h4 class="text-gray-700 dark:text-gray-300">{{ i[1] }}</h4>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  {% endif %}
+
+</body>
+</html>
